@@ -2,6 +2,8 @@ function db_cv = user_change_link_date(db_cv, user_name, user_name_link, meeting
 %Change the date of the last meeting of "user_name" (string or user id)
 %with "user_name_link" (string or user id). The format of the meeting date
 %is dd/mm/yyyy
+%
+%Author: Kevin Müller, 05.04.2020
 
     if strcmp(user_name, user_name_link)
         warning('Link between same users doesn''t exist') ;
