@@ -44,7 +44,7 @@ function db_cv = delete_link(db_cv, id_node, id_link, num_link)
 
     line_empty = true ;
     
-    for m1 = 1 : 5
+    for m1 = 1 : db_cv.g.num_link
         if db_cv.link.d.([num2str(m1), ': Link state'])(id_link) ~= 0 %is a link
             line_empty = false ;
             break ;

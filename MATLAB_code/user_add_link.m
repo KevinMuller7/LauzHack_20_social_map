@@ -23,7 +23,9 @@ function db_cv = user_add_link(db_cv, user_name, user_name_link)
     if isempty(id_link)
         %Add link
         [db_cv, id_link, num_link] = add_link(db_cv, id_node) ;
+        %Node initialization
         db_cv.link.d.([num2str(num_link), ': Address to node'])(id_link) = id_node_link ;
+        db_cv.link.d.([num2str(num_link), ': Last time'])(id_link) = 0 ;
         
         %Check
         [id_link_2, num_link_2] = tool_find_link(db_cv, id_node_link, id_node) ;
@@ -56,25 +58,25 @@ function [db_cv, id_link, num_link] = add_link(db_cv, id_node)
         num_link = [] ;
 
         while isempty(num_link) && id_link ~= 0
-            id_old_link = id_link ;
+            id_prev_link = id_link ;
             
-            for m1 = 1 : 5
+            for m1 = 1 : db_cv.g.num_link
                 if db_cv.link.d.([num2str(m1), ': Link state'])(id_link) == 0 %no link
                     num_link = m1 ;
                     break ;
                 end
             end
 
-            id_link = db_cv.link.d.('Address to link')(id_old_link) ;
+            id_link = db_cv.link.d.('Address to link')(id_prev_link) ;
         end
         
         if isempty(num_link)
             [db_cv.link, id_link] = memory_add_element(db_cv.link) ;
-            db_cv.link.d.('Address to link')(id_old_link) = id_link ;
+            db_cv.link.d.('Address to link')(id_prev_link) = id_link ;
             db_cv.link.d.('Address to link')(id_link) = 0 ;
             num_link = 1 ;
         else
-            id_link = id_old_link ;
+            id_link = id_prev_link ;
         end
     end
 

@@ -13,7 +13,7 @@ function [id_link, num_link] = tool_find_link(db_cv, id_node, id_node_link)
     while isempty(num_link) && id_new_link ~= 0
         id_link = id_new_link ;
         
-        for m1 = 1 : 5
+        for m1 = 1 : db_cv.g.num_link
             if db_cv.link.d.([num2str(m1), ': Link state'])(id_link) ~= 0 &&...
                     db_cv.link.d.([num2str(m1), ': Address to node'])(id_link) == id_node_link
                 num_link = m1 ;

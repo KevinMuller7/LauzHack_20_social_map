@@ -11,7 +11,7 @@ function db_cv = user_change_state(db_cv, user_name, new_state)
         return ;
     end
     
-    if new_state < 0 || new_state > 4
+    if new_state < 0 || new_state > 4 %From healthy (0) to recovered (4)
         error('This health state does not exist')
     end
     

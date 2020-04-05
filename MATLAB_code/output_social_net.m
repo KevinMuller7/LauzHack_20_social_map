@@ -11,11 +11,11 @@ function output_social_net(db_cv)
     node_pos = rand(num_nodes, 3) ;
     
     cond_state = false(num_nodes, 4) ;
-    cond_state(:,1) = db_cv.node.d.('Health state') (1:num_nodes) == 0 ;
-    cond_state(:,2) = db_cv.node.d.('Health state') (1:num_nodes) == 1 ;
+    cond_state(:,1) = db_cv.node.d.('Health state') (1:num_nodes) == 0 ; %Healthy
+    cond_state(:,2) = db_cv.node.d.('Health state') (1:num_nodes) == 1 ; %Sick (but not tested to coronavirus)
     cond_state(:,3) = db_cv.node.d.('Health state') (1:num_nodes) == 2 |...
-        db_cv.node.d.('Health state') (1:num_nodes) == 3 ;
-    cond_state(:,4) = db_cv.node.d.('Health state') (1:num_nodes) == 4 ;
+        db_cv.node.d.('Health state') (1:num_nodes) == 3 ; %Tested positive to coronavirus
+    cond_state(:,4) = db_cv.node.d.('Health state') (1:num_nodes) == 4 ; %Recovered from the coronavirus
     
     color_plot = {'b', 'y', 'r', 'g'} ;
     
@@ -37,7 +37,7 @@ function output_social_net(db_cv)
         
         while id_link ~= 0
 
-            for m2 = 1 : 5
+            for m2 = 1 : db_cv.g.num_link
                 if db_cv.link.d.([num2str(m2), ': Link state'])(id_link) ~= 0
                     node_id = db_cv.link.d.([num2str(m2), ': Address to node'])(id_link) ;
                     if db_cv.link.d.([num2str(m2), ': Link state'])(id_link) == 1

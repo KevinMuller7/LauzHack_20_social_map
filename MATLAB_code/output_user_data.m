@@ -29,13 +29,18 @@ function user_data = output_user_data(db_cv, user_name)
     user_data.user_id = id_node ;
     user_data.postal_code = db_cv.node.d.('Postal code')(id_node) ;
     user_data.health_state = name_health_state(db_cv.node.d.('Health state')(id_node)) ;
-    user_data.links = table('Size', [size(info_link,1), 5],...
-        'VariableTypes', {'string', 'uint64', 'string', 'string', 'string'},...
-        'VariableNames', {'User name', 'User id', 'Health state', 'Social distance', 'Link state'}) ;
+    user_data.links = table('Size', [size(info_link,1), 6],...
+        'VariableTypes', {'string', 'uint64', 'string', 'string', 'string', 'string'},...
+        'VariableNames', {'User name', 'User id', 'Last time', 'Health state', 'Social distance', 'Link state'}) ;
     
     for m1 = 1 : size(info_link,1)
         user_data.links.('User name')(m1) = db_cv.user.d.('User name')(info_link(m1,1)) ;
         user_data.links.('User id')(m1) = info_link(m1,1) ; %Should not be seen by user
+        if info_link(m1,3) == 0
+            user_data.links.('Last time')(m1) = 'No given date' ;
+        else
+            user_data.links.('Last time')(m1) = datestr(info_link(m1,3), 'dd/mm/yyyy') ;
+        end
         user_data.links.('Link state')(m1) = name_link_state(info_link(m1,2)) ;
         
         if info_link(m1,2) > 1
@@ -94,7 +99,7 @@ function info_link = get_all_link(db_cv, id_node)
     id_link = db_cv.node.d.('Address to link')(id_node) ;
     
     while id_link ~= 0
-        for m1 = 1 : 5
+        for m1 = 1 : db_cv.g.num_link
             if db_cv.link.d.([num2str(m1), ': Link state'])(id_link) ~= 0
                 num_link = num_link + 1 ;
             end
@@ -103,17 +108,18 @@ function info_link = get_all_link(db_cv, id_node)
         id_link = db_cv.link.d.('Address to link')(id_link) ;
     end
     
-    info_link = zeros(num_link, 2) ;
+    info_link = zeros(num_link, 3) ;
     
     num_link = 0 ;
     id_link = db_cv.node.d.('Address to link')(id_node) ;
     
     while id_link ~= 0
-        for m1 = 1 : 5
+        for m1 = 1 : db_cv.g.num_link
             if db_cv.link.d.([num2str(m1), ': Link state'])(id_link) ~= 0
                 num_link = num_link + 1 ;
                 info_link(num_link, 1) = db_cv.link.d.([num2str(m1), ': Address to node'])(id_link) ;
                 info_link(num_link, 2) = db_cv.link.d.([num2str(m1), ': Link state'])(id_link) ;
+                info_link(num_link, 3) = db_cv.link.d.([num2str(m1), ': Last time'])(id_link) ;
             end
         end
         
@@ -126,7 +132,7 @@ function cv_distance = get_link_data(db_cv, id_node_link, id_ign_node, s_dist, m
 
     health_state = db_cv.node.d.('Health state')(id_node_link) ;
     
-    if health_state == 2 || health_state == 3
+    if health_state == 2 || health_state == 3 %Has the coronavirus
         cv_distance = s_dist ;
     else
         cv_distance = inf ;
@@ -134,7 +140,7 @@ function cv_distance = get_link_data(db_cv, id_node_link, id_ign_node, s_dist, m
         if s_dist ~= max_dist
             info_link = get_all_link(db_cv, id_node_link) ;
             if isempty(id_ign_node)
-                info_link = info_link(info_link(:,2) > 1, 1) ;
+                info_link = info_link(info_link(:,2) > 1, 1) ; %Validated link
             else
                 info_link = info_link(any(info_link(:,1) ~= id_ign_node.', 2) & info_link(:,2) > 1, 1) ;
             end

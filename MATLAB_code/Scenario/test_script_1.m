@@ -57,6 +57,10 @@ function db_cv = test_script_1()
     db_cv = user_add_link(db_cv, 'Hector', 'BGeck') ;
 %     db_cv = user_change_state(db_cv, 'LKelner', 2) ;
     db_cv = user_change_state(db_cv, 'Hector', 2) ;
+    db_cv = user_change_postal_code(db_cv, 'Hector', 345) ;
+    
+    db_cv = user_delete_link(db_cv, 'Hector', 'Minimini') ;
+    db_cv = user_change_link_date(db_cv, 'Morgan', 'LKelner', '05/04/2020') ;
     
 end
 

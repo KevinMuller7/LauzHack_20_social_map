@@ -16,6 +16,8 @@ function db_cv = memory_allocate_new_table(init_size)
 
     data_struct = {'string', 'User name'} ;
     
+    db_cv.g.num_link = 5 ; %Number of link per line in link data
+    
     db_cv.user = create_dynamic_table(data_struct, init_size, init_hole) ;
 
     data_struct = cell(3,2) ;
@@ -26,13 +28,20 @@ function db_cv = memory_allocate_new_table(init_size)
     
     db_cv.node = create_dynamic_table(data_struct, init_size, init_hole) ;
     
-    data_struct = cell(11,2) ;
-    for m1 = 1 : 2 : 9
-        data_struct(m1,:) = {'uint64', [num2str((m1+1)/2), ': Address to node']} ;
-        data_struct(m1+1,:) = {'uint8', [num2str((m1+1)/2), ': Link state']} ;
-        %No link (0), one-sided(1), deletion pending (2), validated (3)
+    sub_data_struct = cell(3,2) ;
+    sub_data_struct(1,:) = {'uint64', 'Address to node'} ;
+    sub_data_struct(2,:) = {'uint32', 'Last time'} ;
+    sub_data_struct(3,:) = {'uint8', 'Link state'} ;
+    %No link (0), one-sided(1), deletion pending (2), validated (3)
+
+    data_struct = cell(size(sub_data_struct,1)*db_cv.g.num_link + 1, 2) ;
+    for m1 = 1 : db_cv.g.num_link
+        for m2 = 1 : size(sub_data_struct,1)
+            data_struct((m1 - 1)*size(sub_data_struct,1) + m2,:) =...
+                {sub_data_struct{m2,1}, [num2str(m1), ': ', sub_data_struct{m2,2}]} ;
+        end
     end
-    data_struct(11,:) = {'uint64', 'Address to link'} ;
+    data_struct(end,:) = {'uint64', 'Address to link'} ;
     
     db_cv.link = create_dynamic_table(data_struct, init_size, init_hole) ;
 
