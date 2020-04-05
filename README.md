@@ -15,12 +15,12 @@ The main idea is that each user enters a set of information about him/her and wh
 
 There are three objectives:
 1° Give useful data, which is not currently obtained, that allows to monitor better the spread of the coronavirus. Hence, better measure against the coronavirus can be done.
-2° For each user, it knows which person it is more risky to have a close social interaction with. Therefore, it provides a better risk assessment at the level of the used.
+2° The user know which person it is more risky to have a close social interaction with. Therefore, it provides a better risk assessment at the level of the user.
 3° It gives who is in quarantine, allowing the user to offer his/her support (like buying foods or calling him/her). Some people that may have the virus still go to a food store because they are not asking for support.
 
 ## The matlab code
 
-The matlab code provided here is a mock up of an app, which is robust and should be able to handle a Swiss-scale scenario. For the moment, in the database, the user has an health state (healthy, sick, critical condition), a location (postal code) and a list of relative/friend. For each relative/friend, he/she can see his/her health state and if he/she knows someone who got the coronavirus (or who knows someone who got the coronavirus, a social distance of 3). Addition information about the user and his/her friends/relatives can be included if necessary.
+The matlab code provided here is a mock up of an app, which is robust and should be able to handle a Swiss-scale scenario. For the moment, in the database, the user has an health state (healthy, sick, critical condition), a location (postal code) and a list of relative/friend. For each relative/friend, he/she can see his/her health state and if he/she knows someone who got the coronavirus (or who knows someone who got the coronavirus, a social distance of 3). Additional information about the user and his/her friends/relatives can be included if necessary.
 
 The mock-up works in the following way. An user pressing a certain button is replaced by a call of the function, which has the format:
 
@@ -54,7 +54,7 @@ This code is the core of the program. From there, multiple type of work can be d
 
 - Analyzing the data: It is a good social map generator, so it gives you a good platform to see how you can interpret the data.
 
-- Adding features: This mock-up app is minimal in terms of data gathering (but already powerful), but it is straight forward to add new feature
+- Adding feature: This mock-up app is minimal in terms of data gathering (but already powerful), but it is straight forward to add new feature
 
 - Translating the code in another language: Obviously, Maltab is not a language to implement an app, but it is easier to create an app based on a working prototype than from scratch. I will help you as much as I can in this process.
 
