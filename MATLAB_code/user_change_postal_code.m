@@ -1,5 +1,5 @@
 function db_cv = user_change_postal_code(db_cv, user_name, postal_code)
-%Change the postal code of "user_name"
+%Change the postal code of "user_name" (a string or his id)
 %
 %Author: Kevin Müller, 05.04.2020
 

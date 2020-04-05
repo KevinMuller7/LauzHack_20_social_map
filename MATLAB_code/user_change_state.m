@@ -1,5 +1,5 @@
 function db_cv = user_change_state(db_cv, user_name, new_state)
-%Change the health state of "user_name"
+%Change the health state of "user_name" (a string or his id)
 %healthy(0), sick(1), sick (corona)(2), critical (corona)(3), recovered (4)
 %
 %Author: Kevin Müller, 05.04.2020

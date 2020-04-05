@@ -1,5 +1,5 @@
 function db_cv = user_delete_link(db_cv, user_name, user_name_link)
-%Delete a social link from "user_name" (a string) to "user_name_link" (user
+%Delete a social link from "user_name" (a string or his id) to "user_name_link" (user
 %id). The link is deleted only if both side deleted it. Otherwise, it is
 %marked as "Deletion pending".
 %

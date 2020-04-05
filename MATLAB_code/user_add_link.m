@@ -1,5 +1,5 @@
 function db_cv = user_add_link(db_cv, user_name, user_name_link)
-%Add a social link from "user_name" (a string) to "user_name_link" (a
+%Add a social link from "user_name" (a string or his id) to "user_name_link" (a
 %number) The link is created only if both side did it. Otherwise, it is
 %marked as one-sided.
 %

@@ -12,6 +12,8 @@ function user_data = output_user_data(db_cv, user_name)
 %   - your social distance from someone with coronavirus and you through
 %   him/her
 %
+%User_name can also be its id
+%
 %Author: Kevin Müller, 05.04.2020
 
     id_node = tool_find_node(db_cv, user_name) ;
