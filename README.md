@@ -40,6 +40,8 @@ where init_size is the initial size of the database. It will initialize the data
 
 Every function has its description at the beginning of the '.m' file. There is the function "test_script_1" that creates a simple scenario (it is a list of action done by users). There is also a bigger social map given in "data_scenario.json" written by Giorgio. Do not hesitate to create new scenario and sharing them.
 
+When writing a scenario, please use the user id instead of the user name when calling a "user_..." function. Searching the user name in the database is not optimized.
+
 Finally, do not hesitate to ask for new functionalities. I would happy to provide them.
 
 ## About the futur
